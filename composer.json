@@ -2,6 +2,17 @@
     "name": "kejubayer/pathao-api-integration",
     "description": "Laravel package for Pathao Courier API integration",
     "type": "library",
+    "keywords": [
+        "pathao",
+        "pathao courier",
+        "pathao api",
+        "pathao laravel",
+        "laravel courier",
+        "laravel delivery",
+        "bangladesh courier",
+        "parcel tracking",
+        "courier webhook"
+    ],
     "license": "MIT",
     "autoload": {
         "psr-4": {

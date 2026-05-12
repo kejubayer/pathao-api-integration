@@ -1,8 +1,25 @@
-# Pathao API Integration
+# Pathao Courier API Integration for Laravel
 
-A Laravel package for integrating with the Pathao Courier API.
+A Laravel package for Pathao Courier API integration in Bangladesh. Create Pathao courier orders, calculate delivery price, get stores, cities, zones, and areas, track parcels, cancel orders, and receive parcel status updates through a webhook.
 
-This package provides a small service layer, facade, config file, and Laravel auto-discovery support for common Pathao Courier operations such as creating orders, checking delivery prices, listing cities/zones/areas, tracking orders, and cancelling orders.
+`kejubayer/pathao-api-integration` provides a Laravel service, facade, config file, route, migration, and model for common Pathao Courier merchant API workflows.
+
+## Features
+
+- Pathao Courier order creation from Laravel
+- Pathao delivery price calculation
+- Pathao merchant store list
+- City, zone, and area lookup
+- Parcel tracking by consignment ID
+- Order cancellation
+- Parcel status webhook route
+- Webhook event storage in database
+- Laravel facade and dependency injection support
+- Laravel package auto-discovery
+
+## Keywords
+
+Pathao Laravel package, Pathao Courier API, Pathao API integration, Laravel courier API, Bangladesh courier API, Pathao parcel tracking, Pathao webhook, Pathao delivery charge, Pathao merchant API.
 
 ## Requirements
 
@@ -10,7 +27,7 @@ This package provides a small service layer, facade, config file, and Laravel au
 - Laravel 8, 9, 10, or 11
 - Guzzle 7
 
-## Installation
+## Laravel Pathao API Installation
 
 Install the package with Composer:
 
@@ -43,7 +60,7 @@ Run the migrations to create the parcel status webhook table:
 php artisan migrate
 ```
 
-## Configuration
+## Pathao API Configuration
 
 The package configuration is stored in `config/pathao.php`.
 
@@ -56,7 +73,7 @@ The package configuration is stored in `config/pathao.php`.
 | `password` | `PATHAO_PASSWORD` | Pathao merchant password. |
 | `webhook_route` | `PATHAO_WEBHOOK_ROUTE` | Webhook route path for parcel status callbacks. Defaults to `pathao/webhook/parcel-status`. |
 
-## Usage
+## Pathao Courier API Usage
 
 Import the facade:
 
@@ -70,7 +87,7 @@ use Pathao;
 $token = Pathao::getAccessToken();
 ```
 
-### Create Order
+### Create Pathao Courier Order
 
 ```php
 $stores = Pathao::stores();
@@ -94,7 +111,7 @@ $order = Pathao::createOrder([
 
 Pathao requires `store_id` when creating an order. Use `Pathao::stores()` to get your available stores, then pass the selected `store_id` to `Pathao::createOrder()`.
 
-### Price Calculation
+### Pathao Delivery Price Calculation
 
 ```php
 $price = Pathao::priceCalculation([
@@ -107,45 +124,45 @@ $price = Pathao::priceCalculation([
 ]);
 ```
 
-### Store List
+### Pathao Store List
 
 ```php
 $stores = Pathao::stores();
 ```
 
-### City List
+### Pathao City List
 
 ```php
 $cities = Pathao::cities();
 ```
 
-### Zone List
+### Pathao Zone List
 
 ```php
 $zones = Pathao::zones($cityId);
 ```
 
-### Area List
+### Pathao Area List
 
 ```php
 $areas = Pathao::areas($zoneId);
 ```
 
-### Track Order
+### Track Pathao Parcel
 
 ```php
 $tracking = Pathao::trackOrder($consignmentId);
 ```
 
-### Cancel Order
+### Cancel Pathao Order
 
 ```php
 $cancelled = Pathao::cancelOrder($consignmentId);
 ```
 
-## Webhook
+## Pathao Parcel Status Webhook
 
-The package registers a POST webhook route for parcel status updates:
+The package registers a POST webhook route for Pathao parcel status updates:
 
 ```text
 POST /pathao/webhook/parcel-status
@@ -157,7 +174,7 @@ Use this URL in your Pathao webhook/callback settings:
 https://your-domain.com/pathao/webhook/parcel-status
 ```
 
-When Pathao sends a parcel status callback, the package stores it in the `pathao_parcel_statuses` table.
+When Pathao sends a parcel status callback, the package stores the event in the `pathao_parcel_statuses` table.
 
 Stored columns:
 
@@ -201,9 +218,9 @@ To customize the webhook URL, change `PATHAO_WEBHOOK_ROUTE`:
 PATHAO_WEBHOOK_ROUTE=api/pathao/parcel-status
 ```
 
-## Data Reference
+## Pathao API Data Reference
 
-### Create Order Data
+### Pathao Create Order Data
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -224,7 +241,7 @@ PATHAO_WEBHOOK_ROUTE=api/pathao/parcel-status
 | `amount_to_collect` | number | Yes | Cash collection amount. Use `0` for non-COD orders. |
 | `item_description` | string | No | Parcel or product description. |
 
-### Price Calculation Data
+### Pathao Price Calculation Data
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -235,7 +252,7 @@ PATHAO_WEBHOOK_ROUTE=api/pathao/parcel-status
 | `recipient_city` | integer | Yes | Destination city ID. |
 | `recipient_zone` | integer | Yes | Destination zone ID. |
 
-### Method Reference
+### Laravel Method Reference
 
 | Method | Description |
 | --- | --- |
@@ -249,7 +266,7 @@ PATHAO_WEBHOOK_ROUTE=api/pathao/parcel-status
 | `trackOrder($consignmentId)` | Returns tracking information for a consignment. |
 | `cancelOrder($consignmentId)` | Cancels an order by consignment ID. |
 
-## API Endpoints Used
+## Pathao API Endpoints Used
 
 | Method | HTTP | Endpoint |
 | --- | --- | --- |
