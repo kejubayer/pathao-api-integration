@@ -47,8 +47,8 @@ Add your Pathao credentials to `.env`:
 PATHAO_BASE_URL=https://api-hermes.pathao.com
 PATHAO_CLIENT_ID=your-client-id
 PATHAO_CLIENT_SECRET=your-client-secret
-PATHAO_USERNAME=your-username
-PATHAO_PASSWORD=your-password
+PATHAO_USERNAME=your-username (pathao merchant email)
+PATHAO_PASSWORD=your-password (pathao merchant password)
 PATHAO_WEBHOOK_ROUTE=pathao/webhook/parcel-status
 ```
 
