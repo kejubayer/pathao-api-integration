@@ -1,0 +1,26 @@
+{
+    "name": "kejubayer/pathao-api-integration",
+    "description": "Laravel package for Pathao Courier API integration",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kejubayer\\PathaoIntegration\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kejubayer\\PathaoIntegration\\PathaoServiceProvider"
+            ],
+            "aliases": {
+                "Pathao": "Kejubayer\\PathaoIntegration\\Facades\\Pathao"
+            }
+        }
+    },
+    "require": {
+        "php": ">=7.4",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
