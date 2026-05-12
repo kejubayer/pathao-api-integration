@@ -12,4 +12,6 @@ return [
 
     'password' => env('PATHAO_PASSWORD'),
 
+    'webhook_route' => env('PATHAO_WEBHOOK_ROUTE', 'pathao/webhook/parcel-status'),
+
 ];

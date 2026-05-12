@@ -32,9 +32,16 @@ PATHAO_CLIENT_ID=your-client-id
 PATHAO_CLIENT_SECRET=your-client-secret
 PATHAO_USERNAME=your-username
 PATHAO_PASSWORD=your-password
+PATHAO_WEBHOOK_ROUTE=pathao/webhook/parcel-status
 ```
 
 Laravel package auto-discovery will register the service provider and facade automatically.
+
+Run the migrations to create the parcel status webhook table:
+
+```bash
+php artisan migrate
+```
 
 ## Configuration
 
@@ -47,6 +54,7 @@ The package configuration is stored in `config/pathao.php`.
 | `client_secret` | `PATHAO_CLIENT_SECRET` | Pathao API client secret. |
 | `username` | `PATHAO_USERNAME` | Pathao merchant username. |
 | `password` | `PATHAO_PASSWORD` | Pathao merchant password. |
+| `webhook_route` | `PATHAO_WEBHOOK_ROUTE` | Webhook route path for parcel status callbacks. Defaults to `pathao/webhook/parcel-status`. |
 
 ## Usage
 
@@ -74,9 +82,6 @@ $order = Pathao::createOrder([
     'recipient_name' => 'Customer Name',
     'recipient_phone' => '017XXXXXXXX',
     'recipient_address' => 'House 1, Road 2, Dhaka',
-    'recipient_city' => 1,
-    'recipient_zone' => 2,
-    'recipient_area' => 3,
     'delivery_type' => 48,
     'item_type' => 2,
     'special_instruction' => 'Handle with care',
@@ -138,6 +143,56 @@ $tracking = Pathao::trackOrder($consignmentId);
 $cancelled = Pathao::cancelOrder($consignmentId);
 ```
 
+## Webhook
+
+The package registers a POST webhook route for parcel status updates:
+
+```text
+POST /pathao/webhook/parcel-status
+```
+
+Use this URL in your Pathao webhook/callback settings:
+
+```text
+https://your-domain.com/pathao/webhook/parcel-status
+```
+
+When Pathao sends a parcel status callback, the package stores it in the `pathao_parcel_statuses` table.
+
+Stored columns:
+
+| Column | Description |
+| --- | --- |
+| `consignment_id` | Consignment ID from the webhook payload, when available. |
+| `merchant_order_id` | Merchant order ID from the webhook payload, when available. |
+| `status` | Status value from `order_status`, `parcel_status`, or `status`. |
+| `payload` | Full webhook request payload as JSON. |
+| `received_at` | Time the webhook was received. |
+
+Example webhook payload:
+
+```json
+{
+    "consignment_id": "12ABC345",
+    "merchant_order_id": "ORD-1001",
+    "order_status": "Delivered"
+}
+```
+
+Read saved parcel statuses:
+
+```php
+use Kejubayer\PathaoIntegration\Models\PathaoParcelStatus;
+
+$statuses = PathaoParcelStatus::latest()->get();
+```
+
+To customize the webhook URL, change `PATHAO_WEBHOOK_ROUTE`:
+
+```env
+PATHAO_WEBHOOK_ROUTE=api/pathao/parcel-status
+```
+
 ## Data Reference
 
 ### Create Order Data
@@ -150,8 +205,8 @@ $cancelled = Pathao::cancelOrder($consignmentId);
 | `recipient_phone` | string | Yes | Customer phone number. |
 | `recipient_secondary_phone` | string | No | Additional customer phone number. |
 | `recipient_address` | string | Yes | Full delivery address. |
-| `recipient_city` | integer | Yes | City ID from `Pathao::cities()`. |
-| `recipient_zone` | integer | Yes | Zone ID from `Pathao::zones($cityId)`. |
+| `recipient_city` | integer | No | City ID from `Pathao::cities()`. |
+| `recipient_zone` | integer | No | Zone ID from `Pathao::zones($cityId)`. |
 | `recipient_area` | integer | No | Area ID from `Pathao::areas($zoneId)`. |
 | `delivery_type` | integer | Yes | Delivery type ID supported by Pathao. |
 | `item_type` | integer | Yes | Item type ID supported by Pathao. |
