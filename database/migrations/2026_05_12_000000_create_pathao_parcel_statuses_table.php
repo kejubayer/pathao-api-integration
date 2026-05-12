@@ -12,7 +12,11 @@ return new class extends Migration
             $table->id();
             $table->string('consignment_id')->nullable()->index();
             $table->string('merchant_order_id')->nullable()->index();
-            $table->string('status')->nullable()->index();
+            $table->unsignedBigInteger('store_id')->nullable()->index();
+            $table->string('event')->nullable()->index();
+            $table->decimal('delivery_fee', 10, 2)->nullable();
+            $table->timestamp('pathao_updated_at')->nullable();
+            $table->timestamp('pathao_timestamp')->nullable();
             $table->json('payload');
             $table->timestamp('received_at')->nullable();
             $table->timestamps();

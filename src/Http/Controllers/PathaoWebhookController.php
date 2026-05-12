@@ -15,7 +15,11 @@ class PathaoWebhookController extends Controller
         $status = PathaoParcelStatus::create([
             'consignment_id' => $payload['consignment_id'] ?? $payload['consignmentId'] ?? null,
             'merchant_order_id' => $payload['merchant_order_id'] ?? $payload['merchantOrderId'] ?? null,
-            'status' => $payload['order_status'] ?? $payload['parcel_status'] ?? $payload['status'] ?? null,
+            'store_id' => $payload['store_id'] ?? null,
+            'event' => $payload['event'] ?? null,
+            'delivery_fee' => $payload['delivery_fee'] ?? null,
+            'pathao_updated_at' => $payload['updated_at'] ?? null,
+            'pathao_timestamp' => $payload['timestamp'] ?? null,
             'payload' => $payload,
             'received_at' => now(),
         ]);

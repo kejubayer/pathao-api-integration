@@ -165,7 +165,11 @@ Stored columns:
 | --- | --- |
 | `consignment_id` | Consignment ID from the webhook payload, when available. |
 | `merchant_order_id` | Merchant order ID from the webhook payload, when available. |
-| `status` | Status value from `order_status`, `parcel_status`, or `status`. |
+| `store_id` | Pathao store ID from the webhook payload. |
+| `event` | Pathao webhook event name, such as `order.created`. |
+| `delivery_fee` | Delivery fee from the webhook payload. |
+| `pathao_updated_at` | Pathao `updated_at` value from the webhook payload. |
+| `pathao_timestamp` | Pathao `timestamp` value from the webhook payload. |
 | `payload` | Full webhook request payload as JSON. |
 | `received_at` | Time the webhook was received. |
 
@@ -175,7 +179,11 @@ Example webhook payload:
 {
     "consignment_id": "12ABC345",
     "merchant_order_id": "ORD-1001",
-    "order_status": "Delivered"
+    "updated_at": "2024-12-27 23:49:43",
+    "timestamp": "2024-12-27T17:49:43+00:00",
+    "store_id": 130820,
+    "event": "order.created",
+    "delivery_fee": 83.46
 }
 ```
 
