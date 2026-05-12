@@ -1,19 +1,36 @@
 {
     "name": "kejubayer/pathao-api-integration",
-    "description": "Laravel package for Pathao Courier API integration",
+    "description": "Laravel Pathao Courier API integration package for creating orders, delivery price calculation, parcel tracking, merchant stores, and webhook status updates.",
     "type": "library",
     "keywords": [
         "pathao",
         "pathao courier",
         "pathao api",
+        "pathao courier api",
         "pathao laravel",
+        "pathao package",
+        "pathao integration",
+        "pathao merchant api",
+        "pathao parcel tracking",
+        "pathao webhook",
+        "pathao delivery charge",
         "laravel courier",
         "laravel delivery",
+        "laravel shipping",
+        "courier api",
+        "delivery api",
+        "shipping api",
         "bangladesh courier",
-        "parcel tracking",
+        "bangladesh delivery",
         "courier webhook"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Khondoker Eftakhar Jubayer",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Kejubayer\\PathaoIntegration\\": "src/"
